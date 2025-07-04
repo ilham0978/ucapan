@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Untuk Nadin 🌸</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .container, .start-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    h1 {
+      font-size: 2em;
+      color: #ff4081;
+    }
+
+    #typing-text {
+      font-size: 1.1em;
+      color: #333;
+      white-space: pre-wrap;
+      max-width: 600px;
+      margin-top: 20px;
+    }
+
+    .popup {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #fff;
+      color: #444;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      display: none;
+      animation: fadeIn 1s forwards;
+    }
+
+    audio {
+      display: none;
+    }
+
+    .flower {
+      position: fixed;
+      top: -10px;
+      font-size: 24px;
+      animation: fall linear infinite;
+      color: #f48fb1;
+      user-select: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .start-button {
+      background-color: #ff4081;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1em;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .start-button:hover {
+      transform: scale(1.05);
+    }
+
+    video.small-round {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      margin-bottom: 15px;
+    }
+
+    .start-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    video.full {
+      max-width: 90%;
+      margin-top: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bgm" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/06/audio_f9e4f0b64b.mp3?filename=relaxing-romantic-ambient-141791.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="start-container" id="start-screen">
+    <div class="start-header">
+      <video class="small-round" autoplay muted loop playsinline>
+        <source src="nadin.mp4" type="video/mp4">
+      </video>
+      <h1>Hai Nadin 🌼</h1>
+      <p>Gimana tadi kerjanya? Capek ya? 😌</p>
+    </div>
+    <button class="start-button" onclick="startMessage()">Klik untuk lihat pesan 💌</button>
+  </div>
+
+  <div class="container" id="main-content" style="display: none;">
+    <h1>Hai Nadin 🌷</h1>
+    <div id="typing-text"></div>
+  </div>
+
+  <div class="popup" id="popup">
+    Kalau kamu senyum pas baca ini...<br>
+    artinya kamu juga suka aku, kan? 🙈💘
+  </div>
+
+  <script>
+    const text = `Hari ini pasti melelahkan ya...
+
+Kerjaan, tugas, dan rutinitas kadang bikin badan capek — tapi jangan lupa, kamu hebat karena tetap bisa bertahan dan menjalani semuanya ❤️
+
+Ilham cuma mau bilang...
+
+Kamu gak sendiri. Ada seseorang di sini yang selalu mikirin kamu diam-diam, dan doain kamu setiap malam ✨
+
+Istirahat yang cukup ya, Nadin. Jangan terlalu keras sama diri sendiri.
+
+Karena kamu layak untuk dicintai, dihargai, dan disemangati... setiap hari 💖`;
+
+    const typingText = document.getElementById("typing-text");
+    const bgm = document.getElementById("bgm");
+
+    function startMessage() {
+      document.getElementById("start-screen").style.display = "none";
+      document.getElementById("main-content").style.display = "flex";
+      bgm.play();
+      typeText();
+    }
+
+    let i = 0;
+    function typeText() {
+      if (i < text.length) {
+        typingText.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeText, 40);
+      } else {
+        document.getElementById("popup").style.display = "block";
+      }
+    }
+
+    function createFlower() {
+      const flower = document.createElement("div");
+      flower.classList.add("flower");
+      flower.style.left = Math.random() * 100 + "vw";
+      flower.style.animationDuration = 4 + Math.random() * 3 + "s";
+      flower.innerText = "🌸";
+      document.body.appendChild(flower);
+
+      setTimeout(() => {
+        flower.remove();
+      }, 7000);
+    }
+
+    setInterval(createFlower, 400);
+  </script>
+
+</body>
+</html>
